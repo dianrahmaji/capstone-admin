@@ -18,8 +18,6 @@ const researcher = [
   }
 ]
 
-import { fullName, email, accountType, major } from '~/utils/validation'
-
 const ResearcherTable = () => {
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedResearcher, setSelectedResearcher] = useState(null)
@@ -78,7 +76,6 @@ const ResearcherTable = () => {
       <ResearcherEditModal
         open={openDialog}
         setOpen={setOpenDialog}
-        validation={{ fullName, email, accountType, major }}
         initialValues={selectedResearcher}
       />
     </Fragment>
