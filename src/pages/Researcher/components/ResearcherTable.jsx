@@ -59,16 +59,16 @@ const ResearcherTable = () => {
               <BaseTableItem className="relative flex gap-2">
                 {!r.isApproved && (
                   <CheckIcon
-                    className="h-6 w-6 text-green-500 hover:cursor-pointer hover:text-green-700 hover:bg-black hover:bg-opacity-10"
+                    className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-green-700"
                     onClick={() => handleApprove(r._id)}
                   />
                 )}
                 <PencilAltIcon
-                  className="h-6 w-6 text-blue-500 hover:cursor-pointer hover:text-blue-700 hover:bg-black hover:bg-opacity-10"
+                  className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-blue-700"
                   onClick={() => handleEdit(r)}
                 />
                 <TrashIcon
-                  className="h-6 w-6 text-red-500 hover:cursor-pointer hover:text-red-700 hover:bg-black hover:bg-opacity-10"
+                  className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-red-700"
                   onClick={() => handleDelete(r._id)}
                 />
               </BaseTableItem>

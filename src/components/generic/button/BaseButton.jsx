@@ -4,7 +4,7 @@ const BaseButton = ({ children, className, secondary = false, ...props }) => {
   return (
     <button
       className={clsx(
-        `${className} sm:text-sm text-base font-medium rounded-md shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2`,
+        `${className} px-4 py-2 sm:text-sm text-base font-medium rounded-md shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2`,
         {
           'text-secondary bg-primary hover:bg-accent focus:ring-primary':
             !secondary,

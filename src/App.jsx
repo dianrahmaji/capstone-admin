@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import dashboard from '~/config/dashboard'
 
-import Login from './pages/Login'
+import Login from '~/pages/Login'
 
 const App = () => {
   return (

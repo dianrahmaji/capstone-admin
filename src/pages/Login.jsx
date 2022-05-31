@@ -51,7 +51,7 @@ const Login = () => {
                 </Link>
               </div>
             </div>
-            <BaseButton className="px-4 py-2 w-full mt-6" type="submit">
+            <BaseButton className="w-full mt-6" type="submit">
               Sign In
             </BaseButton>
           </BaseForm>
