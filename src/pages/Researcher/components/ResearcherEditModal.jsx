@@ -1,14 +1,20 @@
-import BaseButton from './generic/button/BaseButton'
-import BaseForm from './generic/form/BaseForm'
-import BaseInput from './generic/form/BaseInput'
-import BaseModal from './generic/modal/BaseModal'
+import BaseButton from '~/components/generic/button/BaseButton'
+import BaseForm from '~/components/generic/form/BaseForm'
+import BaseInput from '~/components/generic/form/BaseInput'
+import BaseModal from '~/components/generic/modal/BaseModal'
+import BaseSelect from '~/components/generic/form/BaseSelect'
 
 const FormModal = ({ title, open, setOpen, ...props }) => {
   return (
     <BaseModal title={title} open={open} setOpen={setOpen}>
-      <BaseForm {...props}>
+      <BaseForm {...props} handleSubmit={console.log}>
+        <BaseInput label="Full Name" name="fullName" type="text" />
         <BaseInput label="Email" name="email" type="email" />
-        <BaseInput label="Password" name="password" type="password" />
+        <BaseInput label="Major" name="major" type="text" />
+        <BaseSelect label="Account Type" name="accountType">
+          <option value="lecturer">Lecturer</option>
+          <option value="student">Student</option>
+        </BaseSelect>
         <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
           <BaseButton
             type="submit"
