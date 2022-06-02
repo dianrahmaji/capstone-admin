@@ -2,8 +2,8 @@ import { Fragment, useState } from 'react'
 import clsx from 'clsx'
 import { CheckIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/outline'
 
-import BaseTableItem from '~/components/generic/table/BaseTableItem'
 import BaseTable from '~/components/generic/table/BaseTable'
+import BaseTableItem from '~/components/generic/table/BaseTableItem'
 import ResearcherEditModal from './ResearcherEditModal'
 
 const header = ['Name', 'Email', 'Role', 'Major', 'Status', 'Actions']
