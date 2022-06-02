@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import {
   CheckIcon,
@@ -79,10 +80,9 @@ const ResearchTable = () => {
                   className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-red-700"
                   onClick={() => {}}
                 />
-                <ExternalLinkIcon
-                  className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-gray-700"
-                  onClick={() => {}}
-                />
+                <Link to={`${r._id}`}>
+                  <ExternalLinkIcon className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-gray-700" />
+                </Link>
               </BaseTableItem>
             </tr>
           ))}

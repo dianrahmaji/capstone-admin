@@ -3,6 +3,7 @@ import clsx from 'clsx'
 
 const NavigationBarItem = ({ name, path, icon: NavIcon }) => {
   const { pathname } = useLocation()
+  const mainPath = `/${pathname.split('/')[1]}`
 
   return (
     <Link
@@ -11,8 +12,8 @@ const NavigationBarItem = ({ name, path, icon: NavIcon }) => {
       className={clsx(
         'group flex items-center px-2 py-2 text-base font-medium rounded-md text-white hover:text-secondary',
         {
-          'bg-primary hover:bg-accent': pathname !== path,
-          'bg-accent font-bold': pathname === path
+          'bg-primary hover:bg-accent': path !== mainPath,
+          'bg-accent font-bold': path === mainPath
         }
       )}
     >
