@@ -17,12 +17,12 @@ const ResearchDetails = () => {
       <h1 className="mt-3 text-2xl font-semibold text-gray-900">
         {research.title}
       </h1>
-      <div className="ml-4 my-6 grid grid-cols-[150px_1fr] gap-y-3">
-        <div className="text-lg font-medium">Topic</div>
+      <div className="ml-4 my-6">
+        <div className="text-lg font-medium mt-5">Topic</div>
         <div>{research.topic.reduce((prev, curr) => prev + ', ' + curr)}</div>
-        <div className="text-lg font-medium">Time</div>
+        <div className="text-lg font-medium  mt-5">Time</div>
         <div>{research.time}</div>
-        <div className="text-lg font-medium">Description</div>
+        <div className="text-lg font-medium  mt-5">Description</div>
         <div>{research.description}</div>
       </div>
     </Fragment>

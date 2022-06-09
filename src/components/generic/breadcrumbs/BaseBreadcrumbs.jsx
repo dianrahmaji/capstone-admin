@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
-import { ChevronRightIcon } from '@heroicons/react/solid'
 
-const BaseBreadcrumbs = ({ pages }) => {
+const BaseBreadcrumbs = ({ pages, separator: SeparatorIcon }) => {
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center">
@@ -10,7 +9,7 @@ const BaseBreadcrumbs = ({ pages }) => {
           <li key={p.name}>
             <div className="flex items-center">
               {i !== 0 && (
-                <ChevronRightIcon
+                <SeparatorIcon
                   className="flex-shrink-0 h-5 w-5 text-gray-400 mx-4"
                   aria-hidden="true"
                 />
