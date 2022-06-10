@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
-const NavigationBarItem = ({ name, path, icon: NavIcon }) => {
+const NavigationBarItem = ({ name, path, icon: NavIcon, onLogout }) => {
   const { pathname } = useLocation()
   const mainPath = `/${pathname.split('/')[1]}`
 
@@ -16,6 +16,7 @@ const NavigationBarItem = ({ name, path, icon: NavIcon }) => {
           'bg-accent font-bold': path === mainPath
         }
       )}
+      onClick={onLogout}
     >
       <NavIcon className="mr-4 flex-shrink-0 h-6 w-6 " aria-hidden="true" />
       {name}

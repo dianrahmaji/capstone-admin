@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
+import { XIcon, LogoutIcon } from '@heroicons/react/outline'
 
 import dashboard from '~/config/dashboard'
 
@@ -34,7 +34,7 @@ const NavigationBarMobile = ({ sidebarOpen, setSidebarOpen }) => {
           leaveFrom="translate-x-0"
           leaveTo="-translate-x-full"
         >
-          <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-700">
+          <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-primary">
             <Transition.Child
               as={Fragment}
               enter="ease-in-out duration-300"
@@ -67,6 +67,9 @@ const NavigationBarMobile = ({ sidebarOpen, setSidebarOpen }) => {
                 {dashboard.map(({ navigation }) => (
                   <NavigationBarItem {...navigation} key={navigation.name} />
                 ))}
+                <div className="pt-3">
+                  <NavigationBarItem name="Keluar" path="#" icon={LogoutIcon} />
+                </div>
               </nav>
             </div>
           </div>
