@@ -1,10 +1,20 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import Header from './components/Header'
 import NavigationBar from './components/NavigationBar'
 
 const DashboardLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const navigate = useNavigate()
+
+  const { user } = useSelector(state => state.userLogin)
+
+  useEffect(() => {
+    console.log(user)
+    if (!user) navigate('/login')
+  }, [user, navigate])
 
   return (
     <Fragment>
