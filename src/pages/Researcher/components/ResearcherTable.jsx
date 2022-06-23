@@ -5,7 +5,8 @@ import { CheckIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/outline'
 
 import {
   researcherList,
-  approveResearcher
+  approveResearcher,
+  deleteResearcher
 } from '~/store/actions/researcherActions'
 
 import BaseTable from '~/components/generic/table/BaseTable'
@@ -24,10 +25,13 @@ const ResearcherTable = () => {
   const { success: successApprove } = useSelector(
     state => state.researcherApprove
   )
+  const { success: successDelete } = useSelector(
+    state => state.researcherDelete
+  )
 
   useEffect(() => {
     dispatch(researcherList())
-  }, [dispatch, successApprove])
+  }, [dispatch, successApprove, successDelete])
 
   const handleApprove = id => {
     dispatch(approveResearcher(id))
@@ -36,7 +40,9 @@ const ResearcherTable = () => {
     setSelectedResearcher(r)
     setOpenDialog(true)
   }
-  const handleDelete = () => {}
+  const handleDelete = id => {
+    dispatch(deleteResearcher(id))
+  }
 
   return (
     <Fragment>

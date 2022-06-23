@@ -5,13 +5,15 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer } from './reducers/userReducers'
 import {
   researcherListReducer,
-  researcherApproveReducer
+  researcherApproveReducer,
+  researcherDeleteReducer
 } from './reducers/researcherReducers'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   researcherList: researcherListReducer,
-  researcherApprove: researcherApproveReducer
+  researcherApprove: researcherApproveReducer,
+  researcherDelete: researcherDeleteReducer
 })
 
 const userFromStorage = localStorage.getItem('user-admin')
