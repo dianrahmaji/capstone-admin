@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import { CheckIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/outline'
 
-import { researcherList } from '~/store/actions/researcherActions'
+import {
+  researcherList,
+  approveResearcher
+} from '~/store/actions/researcherActions'
 
 import BaseTable from '~/components/generic/table/BaseTable'
 import BaseTableItem from '~/components/generic/table/BaseTableItem'
@@ -18,12 +21,17 @@ const ResearcherTable = () => {
   const dispatch = useDispatch()
 
   const { researchers } = useSelector(state => state.researcherList)
+  const { success: successApprove } = useSelector(
+    state => state.researcherApprove
+  )
 
   useEffect(() => {
     dispatch(researcherList())
-  }, [dispatch])
+  }, [dispatch, successApprove])
 
-  const handleApprove = () => {}
+  const handleApprove = id => {
+    dispatch(approveResearcher(id))
+  }
   const handleEdit = r => {
     setSelectedResearcher(r)
     setOpenDialog(true)

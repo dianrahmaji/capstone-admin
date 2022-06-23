@@ -3,11 +3,15 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { userLoginReducer } from './reducers/userReducers'
-import { researcherListReducer } from './reducers/researcherReducers'
+import {
+  researcherListReducer,
+  researcherApproveReducer
+} from './reducers/researcherReducers'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
-  researcherList: researcherListReducer
+  researcherList: researcherListReducer,
+  researcherApprove: researcherApproveReducer
 })
 
 const userFromStorage = localStorage.getItem('user-admin')
