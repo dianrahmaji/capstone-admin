@@ -20,7 +20,6 @@ const Login = () => {
   const { user } = useSelector(state => state.userLogin)
 
   useEffect(() => {
-    console.log(user)
     if (user) navigate('/', { replace: true })
   }, [user, navigate])
 
