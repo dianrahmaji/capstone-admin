@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import {
@@ -9,25 +10,25 @@ import {
   TrashIcon
 } from '@heroicons/react/outline'
 
+import { repositoryList } from '~/store/actions/repositoryActions'
+
 import BaseTable from '~/components/generic/table/BaseTable'
 import BaseTableItem from '~/components/generic/table/BaseTableItem'
 import ResearchEditModal from './ResearchEditModal'
 
-const header = ['Title', 'Faculty', 'Status', 'Actions']
-const research = [
-  {
-    _id: 1,
-    title: 'Capstone Project',
-    description: 'Best project ever',
-    faculty: 'Engineering',
-    approval: 'approved',
-    status: 'active'
-  }
-]
+const header = ['Title', 'Status', 'Actions']
 
 const ResearchTable = () => {
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedResearch, setSelectedResearch] = useState(null)
+
+  const dispatch = useDispatch()
+
+  const { repositories } = useSelector(state => state.repositoryList)
+
+  useEffect(() => {
+    dispatch(repositoryList())
+  }, [dispatch])
 
   const handleEdit = r => {
     setSelectedResearch(r)
@@ -37,30 +38,27 @@ const ResearchTable = () => {
   return (
     <Fragment>
       <BaseTable header={header}>
-        {research &&
-          research.map(r => (
+        {repositories &&
+          repositories.map(r => (
             <tr key={r._id}>
-              <BaseTableItem>{r.title}</BaseTableItem>
-              <BaseTableItem>{r.faculty}</BaseTableItem>
+              <BaseTableItem>{r.name}</BaseTableItem>
               <BaseTableItem>
                 <span
                   className={clsx(
                     'inline-flex rounded-full  px-2 text-xs font-semibold leading-5 ',
                     {
-                      'bg-green-100 text-blue-800':
-                        r.approval === 'approved' && r.status === 'done',
-                      'bg-green-100 text-green-800':
-                        r.approval === 'approved' && r.status === 'active',
-                      'bg-red-100 text-red-800': r.approval === 'rejected',
-                      'bg-yellow-100 text-yellow-800': r.approval === 'updated'
+                      'bg-blue-100 text-blue-800': r.status === 'pending',
+                      'bg-yellow-100 text-yellow-800': r.status === 'updated',
+                      'bg-green-100 text-green-800': r.status === 'accepted',
+                      'bg-red-100 text-red-800': !r.status === 'rejected'
                     }
                   )}
                 >
-                  {r.approval === 'approved' ? r.status : r.approval}
+                  {r.status}
                 </span>
               </BaseTableItem>
               <BaseTableItem className="relative flex gap-2">
-                {r.approval !== 'approved' && (
+                {r.status !== 'approved' && (
                   <Fragment>
                     <CheckIcon
                       className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-green-700"
