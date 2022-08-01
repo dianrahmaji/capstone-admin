@@ -10,7 +10,10 @@ import {
   TrashIcon
 } from '@heroicons/react/outline'
 
-import { repositoryList } from '~/store/actions/repositoryActions'
+import {
+  repositoryList,
+  respondRepository
+} from '~/store/actions/repositoryActions'
 
 import BaseTable from '~/components/generic/table/BaseTable'
 import BaseTableItem from '~/components/generic/table/BaseTableItem'
@@ -35,6 +38,10 @@ const ResearchTable = () => {
     setOpenDialog(true)
   }
 
+  const handleApprove = (id, approve) => {
+    dispatch(respondRepository({ id, approve }))
+  }
+
   return (
     <Fragment>
       <BaseTable header={header}>
@@ -50,7 +57,7 @@ const ResearchTable = () => {
                       'bg-blue-100 text-blue-800': r.status === 'pending',
                       'bg-yellow-100 text-yellow-800': r.status === 'updated',
                       'bg-green-100 text-green-800': r.status === 'accepted',
-                      'bg-red-100 text-red-800': !r.status === 'rejected'
+                      'bg-red-100 text-red-800': r.status === 'rejected'
                     }
                   )}
                 >
@@ -58,15 +65,15 @@ const ResearchTable = () => {
                 </span>
               </BaseTableItem>
               <BaseTableItem className="relative flex gap-2">
-                {r.status !== 'approved' && (
+                {r.status !== 'accepted' && (
                   <Fragment>
                     <CheckIcon
                       className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-green-700"
-                      onClick={() => {}}
+                      onClick={() => handleApprove(r._id, true)}
                     />
                     <XIcon
                       className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-red-700"
-                      onClick={() => {}}
+                      onClick={() => handleApprove(r._id, false)}
                     />
                   </Fragment>
                 )}
