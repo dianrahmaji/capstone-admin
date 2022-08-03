@@ -13,7 +13,8 @@ import {
 import {
   repositoryList,
   respondRepository,
-  editRepository
+  editRepository,
+  deleteRepository
 } from '~/store/actions/repositoryActions'
 
 import BaseTable from '~/components/generic/table/BaseTable'
@@ -44,6 +45,10 @@ const ResearchTable = () => {
 
   const handleApprove = (id, approve) => {
     dispatch(respondRepository({ id, approve }))
+  }
+
+  const handleDelete = id => {
+    dispatch(deleteRepository(id))
   }
 
   const handleSubmit = ({ status, administrator, members, ...rest }) => {
@@ -92,7 +97,7 @@ const ResearchTable = () => {
                 />
                 <TrashIcon
                   className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-red-700"
-                  onClick={() => {}}
+                  onClick={() => handleDelete(r._id)}
                 />
                 <Link to={`${r._id}`}>
                   <ExternalLinkIcon className="h-6 w-6 text-gray-400 rounded-md hover:cursor-pointer hover:text-gray-700" />

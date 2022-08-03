@@ -1,4 +1,7 @@
 import {
+  DELETE_REPOSITORY_FAIL,
+  DELETE_REPOSITORY_REQUEST,
+  DELETE_REPOSITORY_SUCCESS,
   EDIT_REPOSITORY_FAIL,
   EDIT_REPOSITORY_REQUEST,
   EDIT_REPOSITORY_SUCCESS,
@@ -43,6 +46,19 @@ export const editRepositoryReducer = (state = {}, action) => {
     case EDIT_REPOSITORY_SUCCESS:
       return { loading: false, repository: action.payload }
     case EDIT_REPOSITORY_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const deleteRepositoryReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_REPOSITORY_REQUEST:
+      return { loading: true }
+    case DELETE_REPOSITORY_SUCCESS:
+      return { loading: false, repository: action.payload }
+    case DELETE_REPOSITORY_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

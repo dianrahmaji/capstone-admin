@@ -1,5 +1,8 @@
 import axios from 'axios'
 import {
+  DELETE_REPOSITORY_FAIL,
+  DELETE_REPOSITORY_REQUEST,
+  DELETE_REPOSITORY_SUCCESS,
   EDIT_REPOSITORY_FAIL,
   EDIT_REPOSITORY_REQUEST,
   EDIT_REPOSITORY_SUCCESS,
@@ -59,6 +62,24 @@ export const editRepository = payload => async dispatch => {
   } catch (error) {
     dispatch({
       type: EDIT_REPOSITORY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+    })
+  }
+}
+
+export const deleteRepository = id => async dispatch => {
+  try {
+    dispatch({ type: DELETE_REPOSITORY_REQUEST })
+
+    const { data } = await axios.delete(`/api/team/${id}`)
+
+    dispatch({ type: DELETE_REPOSITORY_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({
+      type: DELETE_REPOSITORY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
