@@ -12,7 +12,8 @@ import {
 
 import {
   repositoryList,
-  respondRepository
+  respondRepository,
+  editRepository
 } from '~/store/actions/repositoryActions'
 
 import BaseTable from '~/components/generic/table/BaseTable'
@@ -34,12 +35,20 @@ const ResearchTable = () => {
   }, [dispatch])
 
   const handleEdit = r => {
-    setSelectedResearch(r)
+    const { repository, ...rest } = r
+    repository.startDate = repository.startDate.slice(0, 10)
+    repository.endDate = repository.endDate.slice(0, 10)
+    setSelectedResearch({ ...repository, ...rest })
     setOpenDialog(true)
   }
 
   const handleApprove = (id, approve) => {
     dispatch(respondRepository({ id, approve }))
+  }
+
+  const handleSubmit = ({ status, administrator, members, ...rest }) => {
+    dispatch(editRepository(rest))
+    setOpenDialog(false)
   }
 
   return (
@@ -96,6 +105,7 @@ const ResearchTable = () => {
         open={openDialog}
         setOpen={setOpenDialog}
         initialValues={selectedResearch}
+        handleSubmit={handleSubmit}
       />
     </Fragment>
   )

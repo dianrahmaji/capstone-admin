@@ -10,7 +10,8 @@ import {
 } from './reducers/researcherReducers'
 import {
   repositoryListReducer,
-  respondRepositoryReducer
+  respondRepositoryReducer,
+  editRepositoryReducer
 } from './reducers/repositoryReducers'
 
 const reducer = combineReducers({
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   researcherApprove: researcherApproveReducer,
   researcherDelete: researcherDeleteReducer,
   repositoryList: repositoryListReducer,
-  respondRepository: respondRepositoryReducer
+  respondRepository: respondRepositoryReducer,
+  editRepository: editRepositoryReducer
 })
 
 const userFromStorage = localStorage.getItem('user-admin')
