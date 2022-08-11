@@ -9,11 +9,11 @@ const DashboardLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const navigate = useNavigate()
 
-  const user = useSelector(state => state.user)
+  const { data } = useSelector(state => state.user)
 
   useEffect(() => {
-    if (!user) navigate('/login')
-  }, [user, navigate])
+    if (!data) navigate('/login')
+  }, [data, navigate])
 
   return (
     <Fragment>
