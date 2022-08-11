@@ -17,7 +17,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { user } = useSelector(state => state.userLogin)
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
     if (user) navigate('/', { replace: true })

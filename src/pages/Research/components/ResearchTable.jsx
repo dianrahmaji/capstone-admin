@@ -11,10 +11,10 @@ import {
 } from '@heroicons/react/outline'
 
 import {
-  repositoryList,
   respondRepository,
   editRepository,
-  deleteRepository
+  deleteRepository,
+  fetchRepositories
 } from '~/store/actions/repositoryActions'
 
 import BaseTable from '~/components/generic/table/BaseTable'
@@ -29,10 +29,10 @@ const ResearchTable = () => {
 
   const dispatch = useDispatch()
 
-  const { repositories } = useSelector(state => state.repositoryList)
+  const { data: repositories } = useSelector(state => state.repositories)
 
   useEffect(() => {
-    dispatch(repositoryList())
+    dispatch(fetchRepositories())
   }, [dispatch])
 
   const handleEdit = r => {

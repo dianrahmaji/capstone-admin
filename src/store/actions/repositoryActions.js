@@ -1,29 +1,23 @@
 import axios from 'axios'
 import {
-  DELETE_REPOSITORY_FAIL,
-  DELETE_REPOSITORY_REQUEST,
-  DELETE_REPOSITORY_SUCCESS,
-  EDIT_REPOSITORY_FAIL,
-  EDIT_REPOSITORY_REQUEST,
-  EDIT_REPOSITORY_SUCCESS,
-  FETCH_REPOSITORY_FAIL,
-  FETCH_REPOSITORY_REQUEST,
-  FETCH_REPOSITORY_SUCCESS,
-  RESPOND_REPOSITORY_FAIL,
-  RESPOND_REPOSITORY_REQUEST,
-  RESPOND_REPOSITORY_SUCCESS
+  DELETE_REPOSITORY,
+  EDIT_REPOSITORY,
+  ERROR_REPOSITORY,
+  FETCH_REPOSITORY,
+  LOADING_REPOSITORY,
+  RESPOND_REPOSITORY
 } from '../constants/repositoryConstants'
 
-export const repositoryList = () => async dispatch => {
+export const fetchRepositories = () => async dispatch => {
   try {
-    dispatch({ type: FETCH_REPOSITORY_REQUEST })
+    dispatch({ type: LOADING_REPOSITORY })
 
     const { data } = await axios.get('/api/team')
 
-    dispatch({ type: FETCH_REPOSITORY_SUCCESS, payload: data })
+    dispatch({ type: FETCH_REPOSITORY, payload: data })
   } catch (error) {
     dispatch({
-      type: FETCH_REPOSITORY_FAIL,
+      type: ERROR_REPOSITORY,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -36,14 +30,15 @@ export const respondRepository =
   ({ id, approve }) =>
   async dispatch => {
     try {
-      dispatch({ type: RESPOND_REPOSITORY_REQUEST })
+      await axios.put(`/api/team/${id}/approve?value=${approve}`)
 
-      const { data } = axios.put(`/api/team/${id}/approve?value=${approve}`)
-
-      dispatch({ type: RESPOND_REPOSITORY_SUCCESS, payload: data })
+      dispatch({
+        type: RESPOND_REPOSITORY,
+        payload: { id, status: approve ? 'accepted' : 'rejected' }
+      })
     } catch (error) {
       dispatch({
-        type: RESPOND_REPOSITORY_FAIL,
+        type: ERROR_REPOSITORY,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -54,14 +49,12 @@ export const respondRepository =
 
 export const editRepository = payload => async dispatch => {
   try {
-    dispatch({ type: EDIT_REPOSITORY_REQUEST })
+    await axios.put(`/api/team/${payload._id}`, payload)
 
-    const { data } = await axios.put(`/api/team/${payload._id}`, payload)
-
-    dispatch({ type: EDIT_REPOSITORY_SUCCESS, payload: data })
+    dispatch({ type: EDIT_REPOSITORY, payload })
   } catch (error) {
     dispatch({
-      type: EDIT_REPOSITORY_FAIL,
+      type: ERROR_REPOSITORY,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -72,14 +65,12 @@ export const editRepository = payload => async dispatch => {
 
 export const deleteRepository = id => async dispatch => {
   try {
-    dispatch({ type: DELETE_REPOSITORY_REQUEST })
+    await axios.delete(`/api/team/${id}`)
 
-    const { data } = await axios.delete(`/api/team/${id}`)
-
-    dispatch({ type: DELETE_REPOSITORY_SUCCESS, payload: data })
+    dispatch({ type: DELETE_REPOSITORY, payload: id })
   } catch (error) {
     dispatch({
-      type: DELETE_REPOSITORY_FAIL,
+      type: ERROR_REPOSITORY,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

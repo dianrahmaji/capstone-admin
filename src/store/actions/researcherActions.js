@@ -2,35 +2,25 @@ import axios from 'axios'
 import MySwal from '~/utils/sweetalert'
 
 import {
-  RESEARCHER_APPROVE_FAIL,
-  RESEARCHER_APPROVE_REQUEST,
-  RESEARCHER_APPROVE_SUCCESS,
-  RESEARCHER_DELETE_REQUEST,
-  RESEARCHER_DELETE_SUCCESS,
-  RESEARCHER_LIST_FAIL,
-  RESEARCHER_LIST_REQUEST,
-  RESEARCHER_LIST_SUCCESS
+  APPROVE_RESEARCHER,
+  DELETE_RESEARCHER,
+  EDIT_RESEARCHER,
+  ERROR_RESEARCHER,
+  FETCH_RESEARCHER,
+  LOADING_RESEARCHER
 } from '../constants/researcherConstants'
 
-export const researcherList = () => async dispatch => {
+export const fetchResearchers = () => async dispatch => {
   try {
-    dispatch({ type: RESEARCHER_LIST_REQUEST })
+    dispatch({ type: LOADING_RESEARCHER })
 
-    const { data } = await axios.get('/api/users')
+    const { data } = await axios.get('/api/user')
 
-    dispatch({ type: RESEARCHER_LIST_SUCCESS, payload: data })
+    dispatch({ type: FETCH_RESEARCHER, payload: data })
   } catch (error) {
     dispatch({
-      type: RESEARCHER_LIST_FAIL,
+      type: ERROR_RESEARCHER,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-    })
-    MySwal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message
@@ -38,13 +28,27 @@ export const researcherList = () => async dispatch => {
   }
 }
 
-export const approveResearcher = researcherId => async dispatch => {
+export const editResearcher = payload => async dispatch => {
   try {
-    dispatch({ type: RESEARCHER_APPROVE_REQUEST })
+    await axios.put(`/api/users/${payload._id}`, payload)
 
-    await axios.put(`/api/users/${researcherId}/approve`)
+    dispatch({ type: EDIT_RESEARCHER, payload })
+  } catch (error) {
+    dispatch({
+      type: ERROR_RESEARCHER,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+    })
+  }
+}
 
-    dispatch({ type: RESEARCHER_APPROVE_SUCCESS })
+export const approveResearcher = id => async dispatch => {
+  try {
+    await axios.put(`/api/users/${id}/approve`)
+
+    dispatch({ type: APPROVE_RESEARCHER, payload: id })
     MySwal.fire({
       icon: 'success',
       title: 'Success',
@@ -52,7 +56,7 @@ export const approveResearcher = researcherId => async dispatch => {
     })
   } catch (error) {
     dispatch({
-      type: RESEARCHER_APPROVE_FAIL,
+      type: ERROR_RESEARCHER,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -69,13 +73,11 @@ export const approveResearcher = researcherId => async dispatch => {
   }
 }
 
-export const deleteResearcher = researcherId => async dispatch => {
+export const deleteResearcher = id => async dispatch => {
   try {
-    dispatch({ type: RESEARCHER_DELETE_REQUEST })
+    await axios.delete(`/api/users/${id}`)
 
-    await axios.delete(`/api/users/${researcherId}`)
-
-    dispatch({ type: RESEARCHER_DELETE_SUCCESS })
+    dispatch({ type: DELETE_RESEARCHER, payload: id })
     MySwal.fire({
       success: 'success',
       title: 'Success',
@@ -83,7 +85,7 @@ export const deleteResearcher = researcherId => async dispatch => {
     })
   } catch (error) {
     dispatch({
-      type: RESEARCHER_DELETE_FAIL,
+      type: ERROR_RESEARCHER,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
