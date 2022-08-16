@@ -5,12 +5,12 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import App from '~/App'
-import { store, persitor } from '~/store'
+import { store, persistor } from '~/store'
 import '~/index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persitor}>
+    <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
