@@ -1,10 +1,10 @@
-import BaseInput from '~/components/generic/form/BaseInput'
-import BaseSelect from '~/components/generic/form/BaseSelect'
-import FormModal from '~/components/FormModal'
+import BaseInput from "~/components/generic/form/BaseInput";
+import BaseSelect from "~/components/generic/form/BaseSelect";
+import FormModal from "~/components/FormModal";
 
-import { fullName, email, accountType, major } from '~/utils/validation'
+import { fullName, email, accountType, major } from "~/utils/validation";
 
-const ResearcherEditModal = props => {
+function ResearcherEditModal(props) {
   return (
     <FormModal
       title="Edit Researcher"
@@ -20,7 +20,7 @@ const ResearcherEditModal = props => {
         <option value="student">Student</option>
       </BaseSelect>
     </FormModal>
-  )
+  );
 }
 
-export default ResearcherEditModal
+export default ResearcherEditModal;

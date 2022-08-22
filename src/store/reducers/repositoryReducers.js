@@ -1,11 +1,12 @@
+/* eslint-disable import/prefer-default-export, default-param-last */
 import {
   DELETE_REPOSITORY,
   EDIT_REPOSITORY,
   ERROR_REPOSITORY,
   FETCH_REPOSITORY,
   LOADING_REPOSITORY,
-  RESPOND_REPOSITORY
-} from '../constants/repositoryConstants'
+  RESPOND_REPOSITORY,
+} from "../constants/repositoryConstants";
 
 /** TODO: Try wether `loading` and `error` could be omitted
  * Cases:
@@ -17,62 +18,62 @@ import {
  */
 export const repositoriesReducer = (
   state = { loading: false, error: null, data: [] },
-  action
+  action,
 ) => {
   switch (action.type) {
     case LOADING_REPOSITORY: {
-      return { loading: true, error: null, data: [...state.data] }
+      return { loading: true, error: null, data: [...state.data] };
     }
     case FETCH_REPOSITORY: {
       return {
         loading: false,
         error: null,
-        data: action.payload
-      }
+        data: action.payload,
+      };
     }
     case EDIT_REPOSITORY: {
-      const { _id, name, ...rest } = action.payload
+      const { _id, name, ...rest } = action.payload;
 
-      const data = state.data.map(r =>
+      const data = state.data.map((r) =>
         r._id === _id
           ? { ...r, _id, name, repository: { ...r.repository, ...rest } }
-          : r
-      )
+          : r,
+      );
 
       return {
         loading: false,
         error: null,
-        data
-      }
+        data,
+      };
     }
     case RESPOND_REPOSITORY: {
-      const data = state.data.map(r =>
+      const data = state.data.map((r) =>
         r._id === action.payload.id
           ? { ...r, status: action.payload.status }
-          : r
-      )
+          : r,
+      );
 
       return {
         loading: false,
         error: null,
-        data
-      }
+        data,
+      };
     }
     case DELETE_REPOSITORY: {
       return {
         loading: false,
         error: null,
-        data: state.data.filter(r => r._id !== action.payload)
-      }
+        data: state.data.filter((r) => r._id !== action.payload),
+      };
     }
     case ERROR_REPOSITORY: {
       return {
         loading: false,
         error: action.payload,
-        data: [...state.data]
-      }
+        data: [...state.data],
+      };
     }
     default:
-      return state
+      return state;
   }
-}
+};

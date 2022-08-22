@@ -1,10 +1,10 @@
-import BaseInput from '~/components/generic/form/BaseInput'
-import FormModal from '~/components/FormModal'
-import TextEditorInput from '~/components/TextEditorInput'
+import BaseInput from "~/components/generic/form/BaseInput";
+import FormModal from "~/components/FormModal";
+import TextEditorInput from "~/components/TextEditorInput";
 
-import { name, title, description, date } from '~/utils/validation'
+import { name, title, description, date } from "~/utils/validation";
 
-const ResearchEditModal = props => {
+function ResearchEditModal(props) {
   return (
     <FormModal
       title="Edit Research"
@@ -19,7 +19,7 @@ const ResearchEditModal = props => {
       </div>
       <TextEditorInput label="Description" name="description" />
     </FormModal>
-  )
+  );
 }
 
-export default ResearchEditModal
+export default ResearchEditModal;

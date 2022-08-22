@@ -1,17 +1,17 @@
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XIcon, LogoutIcon } from '@heroicons/react/outline'
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XIcon, LogoutIcon } from "@heroicons/react/outline";
 
-import dashboard from '~/config/dashboard'
+import dashboard from "~/config/dashboard";
 
-import NavigationBarItem from './NavigationBarItem'
+import NavigationBarItem from "./NavigationBarItem";
 
-const NavigationBarMobile = ({ sidebarOpen, setSidebarOpen }) => {
+function NavigationBarMobile({ sidebarOpen, setSidebarOpen }) {
   return (
     <Transition.Root show={sidebarOpen} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 flex z-40 md:hidden"
+        className="fixed inset-0 z-40 flex md:hidden"
         onClose={setSidebarOpen}
       >
         <Transition.Child
@@ -34,7 +34,7 @@ const NavigationBarMobile = ({ sidebarOpen, setSidebarOpen }) => {
           leaveFrom="translate-x-0"
           leaveTo="-translate-x-full"
         >
-          <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-primary">
+          <div className="relative flex w-full max-w-xs flex-1 flex-col bg-primary pt-5 pb-4">
             <Transition.Child
               as={Fragment}
               enter="ease-in-out duration-300"
@@ -47,7 +47,7 @@ const NavigationBarMobile = ({ sidebarOpen, setSidebarOpen }) => {
               <div className="absolute top-0 right-0 -mr-12 pt-2">
                 <button
                   type="button"
-                  className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                  className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                   onClick={() => setSidebarOpen(false)}
                 >
                   <span className="sr-only">Close sidebar</span>
@@ -55,15 +55,15 @@ const NavigationBarMobile = ({ sidebarOpen, setSidebarOpen }) => {
                 </button>
               </div>
             </Transition.Child>
-            <div className="flex-shrink-0 flex items-center px-4">
+            <div className="flex shrink-0 items-center px-4">
               <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
                 alt="Workflow"
               />
             </div>
-            <div className="mt-5 flex-1 h-0 overflow-y-auto">
-              <nav className="px-2 space-y-1">
+            <div className="mt-5 h-0 flex-1 overflow-y-auto">
+              <nav className="space-y-1 px-2">
                 {dashboard.map(({ navigation }) => (
                   <NavigationBarItem {...navigation} key={navigation.name} />
                 ))}
@@ -74,10 +74,10 @@ const NavigationBarMobile = ({ sidebarOpen, setSidebarOpen }) => {
             </div>
           </div>
         </Transition.Child>
-        <div className="flex-shrink-0 w-14" aria-hidden="true"></div>
+        <div className="w-14 shrink-0" aria-hidden="true" />
       </Dialog>
     </Transition.Root>
-  )
+  );
 }
 
-export default NavigationBarMobile
+export default NavigationBarMobile;

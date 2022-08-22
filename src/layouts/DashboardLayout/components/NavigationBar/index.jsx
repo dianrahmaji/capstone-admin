@@ -1,21 +1,17 @@
-import { Fragment } from 'react'
+import NavigationBarDesktop from "./NavigationBarDesktop";
+import NavigationBarMobile from "./NavigationBarMobile";
 
-import NavigationBarDesktop from './NavigationBarDesktop'
-import NavigationBarMobile from './NavigationBarMobile'
-
-const NavigationBar = ({ sidebarOpen, setSidebarOpen }) => {
+function NavigationBar({ sidebarOpen, setSidebarOpen }) {
   return (
-    <Fragment>
-      <div>
-        <NavigationBarMobile
-          sidebarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-        />
+    <div>
+      <NavigationBarMobile
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
-        <NavigationBarDesktop />
-      </div>
-    </Fragment>
-  )
+      <NavigationBarDesktop />
+    </div>
+  );
 }
 
-export default NavigationBar
+export default NavigationBar;

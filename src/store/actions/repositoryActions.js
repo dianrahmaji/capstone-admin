@@ -1,80 +1,80 @@
-import axios from 'axios'
+import axios from "axios";
 import {
   DELETE_REPOSITORY,
   EDIT_REPOSITORY,
   ERROR_REPOSITORY,
   FETCH_REPOSITORY,
   LOADING_REPOSITORY,
-  RESPOND_REPOSITORY
-} from '../constants/repositoryConstants'
+  RESPOND_REPOSITORY,
+} from "../constants/repositoryConstants";
 
-export const fetchRepositories = () => async dispatch => {
+export const fetchRepositories = () => async (dispatch) => {
   try {
-    dispatch({ type: LOADING_REPOSITORY })
+    dispatch({ type: LOADING_REPOSITORY });
 
-    const { data } = await axios.get('/api/team')
+    const { data } = await axios.get("/api/team");
 
-    dispatch({ type: FETCH_REPOSITORY, payload: data })
+    dispatch({ type: FETCH_REPOSITORY, payload: data });
   } catch (error) {
     dispatch({
       type: ERROR_REPOSITORY,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
-    })
+          : error.message,
+    });
   }
-}
+};
 
 export const respondRepository =
   ({ id, approve }) =>
-  async dispatch => {
+  async (dispatch) => {
     try {
-      await axios.put(`/api/team/${id}/approve?value=${approve}`)
+      await axios.put(`/api/team/${id}/approve?value=${approve}`);
 
       dispatch({
         type: RESPOND_REPOSITORY,
-        payload: { id, status: approve ? 'accepted' : 'rejected' }
-      })
+        payload: { id, status: approve ? "accepted" : "rejected" },
+      });
     } catch (error) {
       dispatch({
         type: ERROR_REPOSITORY,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
-            : error.message
-      })
+            : error.message,
+      });
     }
-  }
+  };
 
-export const editRepository = payload => async dispatch => {
+export const editRepository = (payload) => async (dispatch) => {
   try {
-    await axios.put(`/api/team/${payload._id}`, payload)
+    await axios.put(`/api/team/${payload._id}`, payload);
 
-    dispatch({ type: EDIT_REPOSITORY, payload })
+    dispatch({ type: EDIT_REPOSITORY, payload });
   } catch (error) {
     dispatch({
       type: ERROR_REPOSITORY,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
-    })
+          : error.message,
+    });
   }
-}
+};
 
-export const deleteRepository = id => async dispatch => {
+export const deleteRepository = (id) => async (dispatch) => {
   try {
-    await axios.delete(`/api/team/${id}`)
+    await axios.delete(`/api/team/${id}`);
 
-    dispatch({ type: DELETE_REPOSITORY, payload: id })
+    dispatch({ type: DELETE_REPOSITORY, payload: id });
   } catch (error) {
     dispatch({
       type: ERROR_REPOSITORY,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
-    })
+          : error.message,
+    });
   }
-}
+};
