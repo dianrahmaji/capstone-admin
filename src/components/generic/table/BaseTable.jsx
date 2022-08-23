@@ -1,4 +1,36 @@
-function BaseTable({ header, children }) {
+function TableRow({ colSpan, type = "empty" }) {
+  return (
+    <tr>
+      <td
+        colSpan={colSpan}
+        className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6"
+      >
+        {type === "empty" ? (
+          <div className="flex items-center justify-center italic opacity-50">
+            table is empty
+          </div>
+        ) : (
+          <div className="flex items-center justify-center">
+            <svg
+              className="mx-3 h-5 w-5 animate-spin"
+              viewBox="0 0 24 24"
+              fill="white"
+            >
+              <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="4" />
+              <path
+                className="opacity-50"
+                fill="black"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+          </div>
+        )}
+      </td>
+    </tr>
+  );
+}
+
+function BaseTable({ header, loading, empty, children }) {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="mt-8 flex flex-col">
@@ -20,7 +52,14 @@ function BaseTable({ header, children }) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {children}
+                  {/* eslint-disable-next-line no-nested-ternary */}
+                  {loading ? (
+                    <TableRow colSpan={header.length + 1} type="loading" />
+                  ) : empty ? (
+                    <TableRow colSpan={header.length + 1} type="empty" />
+                  ) : (
+                    children
+                  )}
                 </tbody>
               </table>
             </div>

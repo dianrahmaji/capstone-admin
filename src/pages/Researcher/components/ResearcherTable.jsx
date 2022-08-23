@@ -21,7 +21,9 @@ function ResearcherTable() {
 
   const dispatch = useDispatch();
 
-  const { data: researchers } = useSelector((state) => state.researchers);
+  const { data: researchers, loading } = useSelector(
+    (state) => state.researchers,
+  );
 
   useEffect(() => {
     dispatch(fetchResearchers());
@@ -40,7 +42,11 @@ function ResearcherTable() {
 
   return (
     <>
-      <BaseTable header={header}>
+      <BaseTable
+        header={header}
+        loading={loading}
+        empty={researchers.loading === 0}
+      >
         {researchers?.map((r) => (
           <tr key={r._id}>
             <BaseTableItem className="font-medium text-gray-900">

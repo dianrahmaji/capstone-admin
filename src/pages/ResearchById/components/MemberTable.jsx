@@ -23,7 +23,7 @@ function MemberTable() {
   return (
     <>
       <h2 className="mt-3 text-xl font-medium">Research Member</h2>
-      <BaseTable header={header}>
+      <BaseTable header={header} loading={false} empty={members.length === 0}>
         {members &&
           members.map((m) => (
             <tr key={m._id}>

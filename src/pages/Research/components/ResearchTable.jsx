@@ -29,7 +29,9 @@ function ResearchTable() {
 
   const dispatch = useDispatch();
 
-  const { data: repositories } = useSelector((state) => state.repositories);
+  const { data: repositories, loading } = useSelector(
+    (state) => state.repositories,
+  );
 
   useEffect(() => {
     dispatch(fetchRepositories());
@@ -58,7 +60,11 @@ function ResearchTable() {
 
   return (
     <>
-      <BaseTable header={header}>
+      <BaseTable
+        header={header}
+        loading={loading}
+        empty={repositories.length === 0}
+      >
         {repositories &&
           repositories.map((r) => (
             <tr key={r._id}>
