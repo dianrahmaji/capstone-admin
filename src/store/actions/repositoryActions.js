@@ -47,6 +47,7 @@ export const respondRepository =
     }
   };
 
+// FIXME: Data update
 export const editRepository = (payload) => async (dispatch) => {
   try {
     await axios.put(`/api/team/${payload._id}`, payload);

@@ -1,6 +1,6 @@
 import BaseInput from "~/components/generic/form/BaseInput";
+import BaseTextArea from "~/components/form/BaseTextArea";
 import FormModal from "~/components/FormModal";
-import TextEditorInput from "~/components/TextEditorInput";
 
 import { name, title, description, date } from "~/utils/validation";
 
@@ -17,7 +17,7 @@ function ResearchEditModal(props) {
         <BaseInput label="Start Date" name="startDate" type="date" />
         <BaseInput label="End Date" name="endDate" type="date" />
       </div>
-      <TextEditorInput label="Description" name="description" />
+      <BaseTextArea label="Description" name="description" />
     </FormModal>
   );
 }
