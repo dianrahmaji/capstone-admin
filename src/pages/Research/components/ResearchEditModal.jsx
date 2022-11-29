@@ -1,5 +1,5 @@
 import BaseInput from "~/components/generic/form/BaseInput";
-import BaseTextArea from "~/components/form/BaseTextArea";
+import BaseTextArea from "~/components/generic/form/BaseTextArea";
 import FormModal from "~/components/FormModal";
 
 import { name, title, description, date } from "~/utils/validation";
