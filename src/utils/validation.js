@@ -10,6 +10,7 @@ export const fullName = Yup.string().required("Full name is required");
 export const major = Yup.string().required("Major is required");
 export const name = Yup.string().required("Name is required");
 export const password = Yup.string().required("Password is required");
+export const review = Yup.string().required("Review is required");
 export const role = Yup.string().required("Role is required");
 export const topic = Yup.array().required("Topic is required");
 export const title = Yup.string().required("Title is required");

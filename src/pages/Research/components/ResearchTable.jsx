@@ -3,28 +3,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import {
-  CheckIcon,
+  AnnotationIcon,
+  // CheckIcon,
+  DownloadIcon,
   ExternalLinkIcon,
-  PencilAltIcon,
-  XIcon,
-  TrashIcon,
+  // PencilAltIcon,
+  ReplyIcon,
+  // XIcon,
+  // TrashIcon,
 } from "@heroicons/react/outline";
 
 import {
-  respondRepository,
+  // respondRepository,
   editRepository,
-  deleteRepository,
+  // deleteRepository,
   fetchRepositories,
 } from "~/store/actions/repositoryActions";
 
 import BaseTable from "~/components/generic/table/BaseTable";
 import BaseTableItem from "~/components/generic/table/BaseTableItem";
 import ResearchEditModal from "./ResearchEditModal";
+import ResearchRespondModal from "./ResearchRespondModal";
+import ResearchReviewModal from "./ResearchReviewModal";
 
 const header = ["Title", "Status", "Actions"];
 
 function ResearchTable() {
   const [openDialog, setOpenDialog] = useState(false);
+  const [openRespondDialog, setOpenRespondDialog] = useState(false);
+  const [openReviewDialog, setOpenReviewDialog] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [selectedResearch, setSelectedResearch] = useState(null);
 
   const dispatch = useDispatch();
@@ -37,20 +45,24 @@ function ResearchTable() {
     dispatch(fetchRepositories());
   }, [dispatch]);
 
-  const handleEdit = (r) => {
-    const { repository, ...rest } = r;
-    repository.startDate = repository.startDate.slice(0, 10);
-    repository.endDate = repository.endDate.slice(0, 10);
-    setSelectedResearch({ ...repository, ...rest });
-    setOpenDialog(true);
-  };
+  // const handleEdit = (r) => {
+  //   const { repository, ...rest } = r;
+  //   repository.startDate = repository.startDate.slice(0, 10);
+  //   repository.endDate = repository.endDate.slice(0, 10);
+  //   setSelectedResearch({ ...repository, ...rest });
+  //   setOpenDialog(true);
+  // };
 
-  const handleApprove = (id, approve) => {
-    dispatch(respondRepository({ id, approve }));
-  };
+  // const handleApprove = (id, approve) => {
+  //   dispatch(respondRepository({ id, approve }));
+  // };
 
-  const handleDelete = (id) => {
-    dispatch(deleteRepository(id));
+  // const handleDelete = (id) => {
+  //   dispatch(deleteRepository(id));
+  // };
+
+  const handleDownload = (link) => {
+    window.open(link);
   };
 
   const handleSubmit = ({ status, administrator, members, ...rest }) => {
@@ -85,7 +97,7 @@ function ResearchTable() {
                 </span>
               </BaseTableItem>
               <BaseTableItem className="relative flex gap-2">
-                {r.status !== "accepted" && (
+                {/* {r.status !== "accepted" && (
                   <>
                     <CheckIcon
                       className="h-6 w-6 rounded-md text-gray-400 hover:cursor-pointer hover:text-green-700"
@@ -96,15 +108,31 @@ function ResearchTable() {
                       onClick={() => handleApprove(r._id, false)}
                     />
                   </>
+                )} */}
+                {r.status !== "pending" ? (
+                  <AnnotationIcon
+                    className="h-6 w-6 rounded-md text-gray-400 hover:cursor-pointer hover:text-blue-700"
+                    onClick={() => setOpenReviewDialog(true)}
+                  />
+                ) : (
+                  <ReplyIcon
+                    className="h-6 w-6 rounded-md text-gray-400 hover:cursor-pointer hover:text-blue-700"
+                    onClick={() => setOpenRespondDialog(true)}
+                  />
                 )}
-                <PencilAltIcon
+
+                <DownloadIcon
+                  className="h-6 w-6 rounded-md text-gray-400 hover:cursor-pointer hover:text-blue-700"
+                  onClick={() => handleDownload(r.document)}
+                />
+                {/* <PencilAltIcon
                   className="h-6 w-6 rounded-md text-gray-400 hover:cursor-pointer hover:text-blue-700"
                   onClick={() => handleEdit(r)}
                 />
                 <TrashIcon
                   className="h-6 w-6 rounded-md text-gray-400 hover:cursor-pointer hover:text-red-700"
                   onClick={() => handleDelete(r._id)}
-                />
+                /> */}
                 <Link to={`${r._id}`}>
                   <ExternalLinkIcon className="h-6 w-6 rounded-md text-gray-400 hover:cursor-pointer hover:text-gray-700" />
                 </Link>
@@ -117,6 +145,14 @@ function ResearchTable() {
         setOpen={setOpenDialog}
         initialValues={selectedResearch}
         handleSubmit={handleSubmit}
+      />
+      <ResearchRespondModal
+        open={openRespondDialog}
+        setOpen={setOpenRespondDialog}
+      />
+      <ResearchReviewModal
+        open={openReviewDialog}
+        setOpen={setOpenReviewDialog}
       />
     </>
   );
