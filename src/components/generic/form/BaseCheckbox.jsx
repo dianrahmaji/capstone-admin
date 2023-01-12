@@ -1,7 +1,7 @@
 import { useField } from "formik";
 
 function BaseCheckbox({ label, ...props }) {
-  const [field] = useField(props);
+  const [field] = useField({ ...props, type: "checkbox" });
 
   return (
     <div className="mt-3 flex items-center">

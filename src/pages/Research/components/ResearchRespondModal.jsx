@@ -1,38 +1,40 @@
-import { CheckIcon, XIcon } from "@heroicons/react/solid";
+import { useDispatch } from "react-redux";
 
-import BaseButton from "~/components/generic/button/BaseButton";
-import BaseForm from "~/components/generic/form/BaseForm";
-import BaseModal from "~/components/generic/modal/BaseModal";
+import { approve, review } from "~/utils/validation";
+import { respondRepository } from "~/store/actions/repositoryActions";
+
+import BaseCheckbox from "~/components/generic/form/BaseCheckbox";
 import BaseTextArea from "~/components/generic/form/BaseTextArea";
+import FormModal from "~/components/FormModal";
 
-import { review } from "~/utils/validation";
+const initialValues = {
+  review: "",
+  approve: false,
+};
 
-function ResearchRespondModal({ open, setOpen }) {
+export default function ResearchRespondModal({
+  open,
+  setOpen,
+  selectedResearchId,
+}) {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values) => {
+    dispatch(respondRepository({ id: selectedResearchId, ...values }));
+    setOpen(false);
+  };
+
   return (
-    <BaseModal title="Respon Pengajuan" open={open} setOpen={setOpen}>
-      <BaseForm validation={{ review }} initialValues={{ review: "" }}>
-        <BaseTextArea label="Review" name="review" />
-        <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-3 sm:gap-3">
-          <BaseButton className="inline-flex w-full justify-center rounded-md border border-transparent shadow-sm focus:outline-none sm:text-sm">
-            <CheckIcon className="mr-2 h-5 w-5" />
-            Terima
-          </BaseButton>
-          <BaseButton className="inline-flex w-full justify-center rounded-md border border-transparent shadow-sm focus:outline-none sm:col-start-2 sm:text-sm">
-            <XIcon className="mr-2 h-5 w-5" />
-            Tolak
-          </BaseButton>
-          <BaseButton
-            type="button"
-            className="mt-3 inline-flex w-full justify-center rounded-md border shadow-sm sm:mt-0 sm:text-sm"
-            secondary
-            onClick={() => setOpen(false)}
-          >
-            Batal
-          </BaseButton>
-        </div>
-      </BaseForm>
-    </BaseModal>
+    <FormModal
+      validation={{ approve, review }}
+      initialValues={initialValues}
+      open={open}
+      setOpen={setOpen}
+      handleSubmit={handleSubmit}
+      title="Respon Permohonan Repositori"
+    >
+      <BaseTextArea label="Review" name="review" />
+      <BaseCheckbox label="Terima Permohonan" name="approve" />
+    </FormModal>
   );
 }
-
-export default ResearchRespondModal;

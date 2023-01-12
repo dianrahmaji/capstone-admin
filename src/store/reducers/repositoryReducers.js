@@ -49,7 +49,11 @@ export const repositoriesReducer = (
     case RESPOND_REPOSITORY: {
       const data = state.data.map((r) =>
         r._id === action.payload.id
-          ? { ...r, status: action.payload.status }
+          ? {
+              ...r,
+              status: action.payload.status,
+              review: action.payload.review,
+            }
           : r,
       );
 

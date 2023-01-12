@@ -26,26 +26,29 @@ export const fetchRepositories = () => async (dispatch) => {
   }
 };
 
-export const respondRepository =
-  ({ id, approve }) =>
-  async (dispatch) => {
-    try {
-      await axios.put(`/api/team/${id}/approve?value=${approve}`);
+export const respondRepository = (payload) => async (dispatch) => {
+  const { id, ...rest } = payload;
+  try {
+    await axios.put(`/api/team/${id}/respond`, rest);
 
-      dispatch({
-        type: RESPOND_REPOSITORY,
-        payload: { id, status: approve ? "accepted" : "rejected" },
-      });
-    } catch (error) {
-      dispatch({
-        type: ERROR_REPOSITORY,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
+    dispatch({
+      type: RESPOND_REPOSITORY,
+      payload: {
+        id,
+        status: rest.approve ? "accepted" : "rejected",
+        review: rest.review,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR_REPOSITORY,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 // FIXME: Data update
 export const editRepository = (payload) => async (dispatch) => {

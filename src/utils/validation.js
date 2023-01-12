@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 
 export const accountType = Yup.string().required("Account type is required");
+export const approve = Yup.boolean("Acceptance is required!");
 export const date = Yup.date().required("Date is required");
 export const description = Yup.string().required("Description is required");
 export const documentName = Yup.string().required("Document name is required");
