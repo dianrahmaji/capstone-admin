@@ -14,15 +14,24 @@ const persistConfig = {
   whitelist: ["user"],
 };
 
-const reducer = combineReducers({
+const appReducer = combineReducers({
   repositories: repositoriesReducer,
   researchers: researchersReducer,
   user: userReducer,
 });
 
+const rootReducer = (state, action) => {
+  if (action.type === "USER_LOGOUT") {
+    localStorage.removeItem("persist:root");
+    return appReducer(undefined, action);
+  }
+
+  return appReducer(state, action);
+};
+
 const middlewares = [thunk];
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(
   persistedReducer,

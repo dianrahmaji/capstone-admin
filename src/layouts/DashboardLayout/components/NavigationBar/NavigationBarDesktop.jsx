@@ -1,11 +1,18 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { LogoutIcon } from "@heroicons/react/outline";
 
 import dashboard from "~/config/dashboard";
 import NavigationBarItem from "./NavigationBarItem";
+import { logout } from "~/store/actions/userActions";
 
 function NavigationBarDesktop() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    console.log("logout");
+    dispatch(logout());
+    navigate("/login");
   };
 
   return (
@@ -23,13 +30,9 @@ function NavigationBarDesktop() {
             {dashboard.map(({ navigation }) => (
               <NavigationBarItem {...navigation} key={navigation.name} />
             ))}
-            <div className="pt-3">
-              <NavigationBarItem
-                name="Keluar"
-                path="#"
-                icon={LogoutIcon}
-                onLogout={handleLogout}
-              />
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+            <div className="pt-3" onClick={handleLogout}>
+              <NavigationBarItem name="Keluar" path="#" icon={LogoutIcon} />
             </div>
           </nav>
         </div>
