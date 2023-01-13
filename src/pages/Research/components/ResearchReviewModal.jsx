@@ -5,7 +5,7 @@ function ResearchRespondModal({ open, setOpen, selectedResearch }) {
   return (
     <BaseModal title="Review" open={open} setOpen={setOpen}>
       <p className="my-3 mx-2 text-sm text-gray-900 sm:col-span-2">
-        {selectedResearch.review}
+        {selectedResearch?.review}
       </p>
       <BaseButton
         type="button"

@@ -118,7 +118,7 @@ function ResearchTable() {
                     />
                   </>
                 )} */}
-                {r.status !== "pending" ? (
+                {r.status === "accepted" || r.status === "rejected" ? (
                   <AnnotationIcon
                     className="h-6 w-6 rounded-md text-gray-400 hover:cursor-pointer hover:text-blue-700"
                     onClick={() => handleReview(r)}
