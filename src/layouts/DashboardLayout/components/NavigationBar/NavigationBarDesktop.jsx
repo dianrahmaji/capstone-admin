@@ -27,9 +27,11 @@ function NavigationBarDesktop() {
         </div>
         <div className="mt-5 flex flex-1 flex-col">
           <nav className="flex-1 space-y-1 px-2 pb-4">
-            {dashboard.map(({ navigation }) => (
-              <NavigationBarItem {...navigation} key={navigation.name} />
-            ))}
+            {dashboard
+              .filter(({ route }) => route.path !== "/")
+              .map(({ navigation }) => (
+                <NavigationBarItem {...navigation} key={navigation.name} />
+              ))}
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
             <div className="pt-3" onClick={handleLogout}>
               <NavigationBarItem name="Keluar" path="#" icon={LogoutIcon} />

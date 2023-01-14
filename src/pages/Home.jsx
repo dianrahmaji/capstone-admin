@@ -1,6 +1,18 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import DashboardLayout from "~/layouts/DashboardLayout";
 
 function Home() {
+  const {
+    data: { token },
+  } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) navigate("/research", { replace: true });
+  }, [token, navigate]);
   return (
     <DashboardLayout>
       <div className="py-6">

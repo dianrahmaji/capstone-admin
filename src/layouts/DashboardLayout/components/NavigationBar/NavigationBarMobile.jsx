@@ -64,9 +64,11 @@ function NavigationBarMobile({ sidebarOpen, setSidebarOpen }) {
             </div>
             <div className="mt-5 h-0 flex-1 overflow-y-auto">
               <nav className="space-y-1 px-2">
-                {dashboard.map(({ navigation }) => (
-                  <NavigationBarItem {...navigation} key={navigation.name} />
-                ))}
+                {dashboard
+                  .filter(({ route }) => route.path !== "/")
+                  .map(({ navigation }) => (
+                    <NavigationBarItem {...navigation} key={navigation.name} />
+                  ))}
                 <div className="pt-3">
                   <NavigationBarItem name="Keluar" path="#" icon={LogoutIcon} />
                 </div>
