@@ -27,7 +27,7 @@ export const researchersReducer = (
     }
     case APPROVE_RESEARCHER: {
       const data = state.data.map((r) =>
-        r._id === action.payload ? { ...r, status: "accepted" } : r,
+        r._id === action.payload ? { ...r, isApproved: true } : r,
       );
       return { loading: false, error: null, data };
     }

@@ -30,7 +30,7 @@ export const fetchResearchers = () => async (dispatch) => {
 
 export const editResearcher = (payload) => async (dispatch) => {
   try {
-    await axios.put(`/api/users/${payload._id}`, payload);
+    await axios.put(`/api/user/${payload._id}`, payload);
 
     dispatch({ type: EDIT_RESEARCHER, payload });
   } catch (error) {
@@ -46,7 +46,7 @@ export const editResearcher = (payload) => async (dispatch) => {
 
 export const approveResearcher = (id) => async (dispatch) => {
   try {
-    await axios.put(`/api/users/${id}/approve`);
+    await axios.put(`/api/user/${id}/approve`);
 
     dispatch({ type: APPROVE_RESEARCHER, payload: id });
     MySwal.fire({
@@ -75,7 +75,7 @@ export const approveResearcher = (id) => async (dispatch) => {
 
 export const deleteResearcher = (id) => async (dispatch) => {
   try {
-    await axios.delete(`/api/users/${id}`);
+    await axios.delete(`/api/user/${id}`);
 
     dispatch({ type: DELETE_RESEARCHER, payload: id });
     MySwal.fire({
